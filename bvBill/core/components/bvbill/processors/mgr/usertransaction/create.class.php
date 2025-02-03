@@ -12,6 +12,7 @@ class bvBillUserTransactionCreateProcessor extends modObjectCreateProcessor
      */
     public function beforeSet()
     {
+        $this->setProperty('createdon', date('Y-m-d H:i:s'));
         return parent::beforeSet();
     }
 

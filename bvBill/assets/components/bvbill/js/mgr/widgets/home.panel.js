@@ -20,30 +20,30 @@ bvBill.panel.Home = function (config) {
             border: true,
             hideMode: 'offsets',
             items: [{
-                title: 'userbalance',
+                title: _('bvbill_userbalance'),
                 layout: 'anchor',
                 items: [{
-                    html: _('bvbill_notifications'),
+                    html: '',
                     cls: 'panel-desc',
                 }, {
                     xtype: 'bvbill-grid-userbalance',
                     cls: 'main-wrapper',
                 }]
             },{
-                title: 'usertransaction',
+                title: _('bvbill_usertransaction'),
                 layout: 'anchor',
                 items: [{
-                    html: _('bvbill_usertransaction'),
+                    html: '',
                     cls: 'panel-desc',
                 }, {
                     xtype: 'bvbill-grid-usertransaction',
                     cls: 'main-wrapper',
                 }]
             },{
-                title: 'usertransactionstatus',
+                title: _('bvbill_usertransactionstatus'),
                 layout: 'anchor',
                 items: [{
-                    html: _('bvbill_usertransactionstatus'),
+                    html: '',
                     cls: 'panel-desc',
                 }, {
                     xtype: 'bvbill-grid-usertransactionstatus',

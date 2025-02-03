@@ -108,6 +108,7 @@ Ext.extend(bvBill.grid.UserBalance, MODx.grid.Grid, {
         }, {
             header: _('bvbill_userbalance_updatedon'),
             dataIndex: 'updatedon',
+            renderer: bvBill.utils.formatDate,
             sortable: true,
             width: 150
         }, {

@@ -51,9 +51,9 @@ bvBill.combo.TransactionStatus = function(config) {
     config = config || {};
 
     Ext.applyIf(config, {
-        name: 'status',
+        name: 'status_id',
         id: 'bvbill-combo-transaction-status',
-        hiddenName: 'status',
+        hiddenName: 'status_id',
         displayField: 'name',
         valueField: 'id',
         fields: ['id', 'name'],
@@ -70,3 +70,37 @@ bvBill.combo.TransactionStatus = function(config) {
 };
 Ext.extend(bvBill.combo.TransactionStatus, MODx.combo.ComboBox);
 Ext.reg('bvbill-combo-transaction-status', bvBill.combo.TransactionStatus);
+
+bvBill.combo.User = function(config) {
+    config = config || {};
+    Ext.applyIf(config, {
+        name: 'user',
+        fieldLabel: _('bvbill_user_' + (config.name || 'createdby')),
+        hiddenName: config.name || 'createdby',
+        displayField: 'username',
+        valueField: 'id',
+        anchor: '99%',
+        fields: ['username', 'id', 'fullname'],
+        pageSize: 20,
+        url: MODx.config.connector_url,
+        typeAhead: true,
+        editable: true,
+        action: 'getList',
+        allowBlank: true,
+        baseParams: {
+            action: 'security/user/getlist',
+            combo: 1,
+            id: config.value
+        },
+        tpl: new Ext.XTemplate(''
+            + '<tpl for="."><div class="x-combo-list-item">'
+            + '<small>({id})</small> <b>{username}</b><br/>{fullname}</span>'
+            + '</div></tpl>', {
+            compiled: true
+        })
+    });
+    bvBill.combo.User.superclass.constructor.call(this, config);
+};
+Ext.extend(bvBill.combo.User, MODx.combo.ComboBox);
+Ext.reg('bvbill-combo-user', bvBill.combo.User);
+

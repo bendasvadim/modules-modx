@@ -119,7 +119,7 @@ Ext.extend(bvBill.grid.UserTransaction, MODx.grid.Grid, {
     },
 
     getFields: function () {
-        return ['id', 'user_id', 'username', 'amount', 'status', 'createdon', 'actions'];
+        return ['id', 'user_id', 'username', 'amount', 'status_id', 'status', 'status_name', 'createdon', 'actions'];
     },
 
     getColumns: function () {
@@ -140,12 +140,13 @@ Ext.extend(bvBill.grid.UserTransaction, MODx.grid.Grid, {
             width: 100
         }, {
             header: _('bvbill_usertransaction_status'),
-            dataIndex: 'status',
+            dataIndex: 'status_name',
             sortable: true,
             width: 100
         }, {
             header: _('bvbill_usertransaction_createdon'),
             dataIndex: 'createdon',
+            renderer: bvBill.utils.formatDate,
             sortable: true,
             width: 150
         }, {
@@ -179,6 +180,49 @@ Ext.extend(bvBill.grid.UserTransaction, MODx.grid.Grid, {
                 },
             }
         }];
-    }
+    },
+
+    onClick: function (e) {
+        var elem = e.getTarget();
+        if (elem.nodeName == 'BUTTON') {
+            var row = this.getSelectionModel().getSelected();
+            if (typeof(row) != 'undefined') {
+                var action = elem.getAttribute('action');
+                if (action == 'showMenu') {
+                    var ri = this.getStore().find('id', row.id);
+                    return this._showMenu(this, ri, e);
+                }
+                else if (typeof this[action] === 'function') {
+                    this.menu.record = row.data;
+                    return this[action](this, e);
+                }
+            }
+        }
+        return this.processEvent('click', e);
+    },
+
+    _getSelectedIds: function () {
+        var ids = [];
+        var selected = this.getSelectionModel().getSelections();
+
+        for (var i in selected) {
+            if (!selected.hasOwnProperty(i)) {
+                continue;
+            }
+            ids.push(selected[i]['id']);
+        }
+
+        return ids;
+    },
+
+    _doSearch: function (tf) {
+        this.getStore().baseParams.query = tf.getValue();
+        this.getBottomToolbar().changePage(1);
+    },
+
+    _clearSearch: function () {
+        this.getStore().baseParams.query = '';
+        this.getBottomToolbar().changePage(1);
+    },
 });
 Ext.reg('bvbill-grid-usertransaction', bvBill.grid.UserTransaction);

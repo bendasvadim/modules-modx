@@ -128,6 +128,44 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         });
     },
 
+    updateUserTransactionStatus: function (btn, e, row) {
+        if (typeof(row) != 'undefined') {
+            this.menu.record = row.data;
+        }
+        else if (!this.menu.record) {
+            return false;
+        }
+        var id = this.menu.record.id;
+        MODx.Ajax.request({
+            url: this.config.url,
+            params: {
+                action: 'mgr/usertransactionstatus/get',
+                id: id
+            },
+            listeners: {
+                success: {
+                    fn: function (r) {
+                        var w = MODx.load({
+                            xtype: 'bvbill-usertransactionstatus-window-update',
+                            id: Ext.id(),
+                            record: r,
+                            listeners: {
+                                success: {
+                                    fn: function () {
+                                        this.refresh();
+                                    }, scope: this
+                                }
+                            }
+                        });
+                        w.reset();
+                        w.setValues(r.object);
+                        w.show(e.target);
+                    }, scope: this
+                }
+            }
+        });
+    },
+
     getFields: function () {
         return ['id', 'name', 'active', 'actions'];
     },

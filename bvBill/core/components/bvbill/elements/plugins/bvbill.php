@@ -7,6 +7,12 @@ switch ($modx->event->name) {
             $userId = $user->get('id');
 
             if ($userId) {
+
+                $bvBill = $modx->getService('bvBill', 'bvBill', MODX_CORE_PATH . 'components/bvbill/model/', $scriptProperties);
+                if (!$bvBill) {
+                    return 'Could not load bvBill class!';
+                }
+
                 $balance = $modx->newObject('bvBillUserBalance');
                 $balance->set('user_id', $userId);
                 $balance->set('balance', 0.00);

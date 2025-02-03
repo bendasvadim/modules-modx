@@ -33,6 +33,7 @@ class bvBillUserTransactionUpdateProcessor extends modObjectUpdateProcessor
         if (empty($id)) {
             return $this->modx->lexicon('bvbill_item_err_ns');
         }
+        $this->setProperty('editedon', date('Y-m-d H:i:s'));
 
         return parent::beforeSet();
     }

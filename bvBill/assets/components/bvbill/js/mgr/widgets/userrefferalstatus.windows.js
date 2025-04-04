@@ -1,14 +1,14 @@
-bvBill.window.CreateUserTransactionStatus = function (config) {
+bvBill.window.CreateUserRefferalStatus = function (config) {
     config = config || {};
     if (!config.id) {
-        config.id = 'bvbill-usertransactionstatus-window-create';
+        config.id = 'bvbill-userrefferalstatus-window-create';
     }
     Ext.applyIf(config, {
-        title: _('bvbill_usertransactionstatus_create'),
+        title: _('bvbill_userrefferalstatus_create'),
         width: 400,
         autoHeight: true,
         url: bvBill.config.connector_url,
-        action: 'mgr/usertransactionstatus/create',
+        action: 'mgr/userrefferalstatus/create',
         fields: this.getFields(config),
         keys: [{
             key: Ext.EventObject.ENTER, shift: true, fn: function () {
@@ -16,27 +16,28 @@ bvBill.window.CreateUserTransactionStatus = function (config) {
             }, scope: this
         }]
     });
-    bvBill.window.CreateUserTransactionStatus.superclass.constructor.call(this, config);
+    bvBill.window.CreateUserRefferalStatus.superclass.constructor.call(this, config);
 };
-Ext.extend(bvBill.window.CreateUserTransactionStatus, MODx.Window, {
+Ext.extend(bvBill.window.CreateUserRefferalStatus, MODx.Window, {
 
     getFields: function (config) {
         return [{
             xtype: 'textfield',
-            fieldLabel: _('bvbill_usertransactionstatus_name'),
+            fieldLabel: _('bvbill_userrefferalstatus_name'),
             name: 'name',
             id: config.id + '-name',
             anchor: '100%',
             allowBlank: false,
         }, {
-            xtype: 'bvbill-combo-transaction-type',
-            boxLabel: _('bvbill_usertransactionstatus_type'),
-            name: 'type',
-            id: config.id + '-type',
-            checked: true,
+            xtype: 'textfield',
+            fieldLabel: _('bvbill_userrefferalstatus_color'),
+            name: 'color',
+            id: config.id + '-color',
+            anchor: '100%',
+            allowBlank: false,
         }, {
             xtype: 'xcheckbox',
-            boxLabel: _('bvbill_usertransactionstatus_active'),
+            boxLabel: _('bvbill_userrefferalstatus_active'),
             name: 'active',
             id: config.id + '-active',
             checked: true,
@@ -46,19 +47,19 @@ Ext.extend(bvBill.window.CreateUserTransactionStatus, MODx.Window, {
     loadDropZones: function () {}
 
 });
-Ext.reg('bvbill-usertransactionstatus-window-create', bvBill.window.CreateUserTransactionStatus);
+Ext.reg('bvbill-userrefferalstatus-window-create', bvBill.window.CreateUserRefferalStatus);
 
-bvBill.window.UpdateUserTransactionStatus = function (config) {
+bvBill.window.UpdateUserRefferalStatus = function (config) {
     config = config || {};
     if (!config.id) {
-        config.id = 'bvbill-usertransactionstatus-window-update';
+        config.id = 'bvbill-userrefferalstatus-window-update';
     }
     Ext.applyIf(config, {
-        title: _('bvbill_usertransactionstatus_update'),
+        title: _('bvbill_userrefferalstatus_update'),
         width: 400,
         autoHeight: true,
         url: bvBill.config.connector_url,
-        action: 'mgr/usertransactionstatus/update',
+        action: 'mgr/userrefferalstatus/update',
         fields: this.getFields(config),
         keys: [{
             key: Ext.EventObject.ENTER, shift: true, fn: function () {
@@ -66,9 +67,9 @@ bvBill.window.UpdateUserTransactionStatus = function (config) {
             }, scope: this
         }]
     });
-    bvBill.window.UpdateUserTransactionStatus.superclass.constructor.call(this, config);
+    bvBill.window.UpdateUserRefferalStatus.superclass.constructor.call(this, config);
 };
-Ext.extend(bvBill.window.UpdateUserTransactionStatus, MODx.Window, {
+Ext.extend(bvBill.window.UpdateUserRefferalStatus, MODx.Window, {
 
     getFields: function (config) {
         return [{
@@ -77,20 +78,21 @@ Ext.extend(bvBill.window.UpdateUserTransactionStatus, MODx.Window, {
             id: config.id + '-id',
         }, {
             xtype: 'textfield',
-            fieldLabel: _('bvbill_usertransactionstatus_name'),
+            fieldLabel: _('bvbill_userrefferalstatus_name'),
             name: 'name',
             id: config.id + '-name',
             anchor: '100%',
             allowBlank: false,
         }, {
-            xtype: 'bvbill-combo-transaction-type',
-            boxLabel: _('bvbill_usertransactionstatus_type'),
-            name: 'type',
-            id: config.id + '-type',
-            checked: true,
+            xtype: 'textfield',
+            fieldLabel: _('bvbill_userrefferalstatus_color'),
+            name: 'color',
+            id: config.id + '-color',
+            anchor: '100%',
+            allowBlank: false,
         }, {
             xtype: 'xcheckbox',
-            boxLabel: _('bvbill_usertransactionstatus_active'),
+            boxLabel: _('bvbill_userrefferalstatus_active'),
             name: 'active',
             id: config.id + '-active',
             checked: true,
@@ -100,4 +102,4 @@ Ext.extend(bvBill.window.UpdateUserTransactionStatus, MODx.Window, {
     loadDropZones: function () {}
 
 });
-Ext.reg('bvbill-usertransactionstatus-window-update', bvBill.window.UpdateUserTransactionStatus);
+Ext.reg('bvbill-userrefferalstatus-window-update', bvBill.window.UpdateUserRefferalStatus);

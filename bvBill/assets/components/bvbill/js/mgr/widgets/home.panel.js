@@ -49,6 +49,26 @@ bvBill.panel.Home = function (config) {
                     xtype: 'bvbill-grid-usertransactionstatus',
                     cls: 'main-wrapper',
                 }]
+            },{
+                title: _('bvbill_userrefferal'),
+                layout: 'anchor',
+                items: [{
+                    html: '',
+                    cls: 'panel-desc',
+                }, {
+                    xtype: 'bvbill-grid-userrefferal',
+                    cls: 'main-wrapper',
+                }]
+            },{
+                title: _('bvbill_userrefferaltatus'),
+                layout: 'anchor',
+                items: [{
+                    html: '',
+                    cls: 'panel-desc',
+                }, {
+                    xtype: 'bvbill-grid-userrefferaltatus',
+                    cls: 'main-wrapper',
+                }]
             }]
         }]
     });

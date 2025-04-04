@@ -14,6 +14,7 @@ $xpdo_meta_map['bvBillUserTransactionStatus']= array (
     'description' => NULL,
     'color' => '000000',
     'active' => 1,
+    'type' => 1,
   ),
   'fieldMeta' => 
   array (
@@ -39,6 +40,14 @@ $xpdo_meta_map['bvBillUserTransactionStatus']= array (
       'default' => '000000',
     ),
     'active' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '1',
+      'phptype' => 'integer',
+      'null' => true,
+      'default' => 1,
+    ),
+    'type' => 
     array (
       'dbtype' => 'tinyint',
       'precision' => '1',

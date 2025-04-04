@@ -6,5 +6,7 @@ $xpdo_meta_map = array (
     0 => 'bvBillUserBalance',
     1 => 'bvBillUserTransaction',
     2 => 'bvBillUserTransactionStatus',
+    3 => 'bvBillUserRefferals',
+    4 => 'bvBillUserRefferalStatus',
   ),
 );

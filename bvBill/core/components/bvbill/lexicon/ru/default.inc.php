@@ -55,3 +55,6 @@ $_lang['bvbill_action_update'] = 'Редактировать';
 $_lang['bvbill_action_remove'] = 'Удалить';
 $_lang['bvbill_action_remove_confirm'] = 'Вы уверены, что хотите удалить этот элемент?';
 $_lang['bvbill_grid_actions'] = 'Действия';
+
+$_lang['bvbill_insufficient_funds'] = 'Недостаточно средств на балансе пользователя.';
+$_lang['bvbill_no_balance_record'] = 'Запись о балансе пользователя не найдена.';

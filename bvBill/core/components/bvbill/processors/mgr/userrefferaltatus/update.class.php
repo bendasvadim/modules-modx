@@ -1,9 +1,9 @@
 <?php
 
-class bvBillUserBalanceUpdateProcessor extends modObjectUpdateProcessor
+class bvBillUserRefferalStatusUpdateProcessor extends modObjectUpdateProcessor
 {
-    public $objectType = 'bvBillUserBalance';
-    public $classKey = 'bvBillUserBalance';
+    public $objectType = 'bvBillUserRefferalStatus';
+    public $classKey = 'bvBillUserRefferalStatus';
     public $languageTopics = ['bvbill'];
     //public $permission = 'save';
 
@@ -30,13 +30,19 @@ class bvBillUserBalanceUpdateProcessor extends modObjectUpdateProcessor
     public function beforeSet()
     {
         $id = (int)$this->getProperty('id');
+        $name = trim($this->getProperty('name'));
         if (empty($id)) {
             return $this->modx->lexicon('bvbill_item_err_ns');
         }
-        $this->setProperty('updatedon', date('Y-m-d H:i:s'));
+
+        if (empty($name)) {
+            $this->modx->error->addField('name', $this->modx->lexicon('bvbill_item_err_name'));
+        } elseif ($this->modx->getCount($this->classKey, ['name' => $name, 'id:!=' => $id])) {
+            $this->modx->error->addField('name', $this->modx->lexicon('bvbill_item_err_ae'));
+        }
 
         return parent::beforeSet();
     }
 }
 
-return 'bvBillUserBalanceUpdateProcessor';
+return 'bvBillUserRefferalStatusUpdateProcessor';

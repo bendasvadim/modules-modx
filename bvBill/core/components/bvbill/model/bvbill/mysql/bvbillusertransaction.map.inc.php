@@ -114,7 +114,7 @@ $xpdo_meta_map['bvBillUserTransaction']= array (
     'UserTransactionStatus' => 
     array (
       'class' => 'bvBillUserTransactionStatus',
-      'local' => 'status',
+      'local' => 'status_id',
       'foreign' => 'id',
       'cardinality' => 'one',
       'owner' => 'foreign',

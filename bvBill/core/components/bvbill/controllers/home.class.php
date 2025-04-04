@@ -61,6 +61,12 @@ class bvBillHomeManagerController extends modExtraManagerController
         $this->addJavascript($this->bvBill->config['jsUrl'] . 'mgr/widgets/usertransactionstatus.grid.js');
         $this->addJavascript($this->bvBill->config['jsUrl'] . 'mgr/widgets/usertransactionstatus.windows.js');
 
+        $this->addJavascript($this->bvBill->config['jsUrl'] . 'mgr/widgets/userrefferal.grid.js');
+        $this->addJavascript($this->bvBill->config['jsUrl'] . 'mgr/widgets/userrefferal.windows.js');
+
+        $this->addJavascript($this->bvBill->config['jsUrl'] . 'mgr/widgets/userrefferalstatus.grid.js');
+        $this->addJavascript($this->bvBill->config['jsUrl'] . 'mgr/widgets/userrefferalstatus.windows.js');
+
         $this->addJavascript($this->bvBill->config['jsUrl'] . 'mgr/widgets/home.panel.js');
         $this->addJavascript($this->bvBill->config['jsUrl'] . 'mgr/sections/home.js');
 

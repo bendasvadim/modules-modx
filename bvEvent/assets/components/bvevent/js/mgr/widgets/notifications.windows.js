@@ -29,12 +29,13 @@ Ext.extend(bvEvent.window.CreateNotification, MODx.Window, {
             anchor: '99%',
             allowBlank: false,
         }, {
-            xtype: 'htmleditor',
+            xtype: 'textarea',
             fieldLabel: _('bvevent_notification_text'),
             name: 'text',
             id: config.id + '-text',
             anchor: '99%',
             allowBlank: false,
+            height: 150,
         }, {
             xtype: 'modx-combo-user',
             fieldLabel: _('bvevent_notification_user_id'),
@@ -92,12 +93,13 @@ Ext.extend(bvEvent.window.UpdateNotification, MODx.Window, {
             anchor: '99%',
             allowBlank: false,
         }, {
-            xtype: 'htmleditor',
+            xtype: 'textarea',
             fieldLabel: _('bvevent_notification_text'),
             name: 'text',
             id: config.id + '-text',
             anchor: '99%',
             allowBlank: false,
+            height: 150,
         }, {
             xtype: 'modx-combo-user',
             fieldLabel: _('bvevent_notification_user_id'),

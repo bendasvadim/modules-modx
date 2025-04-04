@@ -1,7 +1,7 @@
-bvBill.grid.UserTransactionStatus = function (config) {
+bvBill.grid.UserRefferalStatus = function (config) {
     config = config || {};
     if (!config.id) {
-        config.id = 'bvbill-grid-usertransactionstatus';
+        config.id = 'bvbill-grid-userrefferaltatus';
     }
     Ext.applyIf(config, {
         url: bvBill.config.connector_url,
@@ -10,12 +10,12 @@ bvBill.grid.UserTransactionStatus = function (config) {
         tbar: this.getTopBar(config),
         sm: new Ext.grid.CheckboxSelectionModel(),
         baseParams: {
-            action: 'mgr/usertransactionstatus/getlist'
+            action: 'mgr/userrefferaltatus/getlist'
         },
         listeners: {
             rowDblClick: function (grid, rowIndex, e) {
                 var row = grid.store.getAt(rowIndex);
-                this.updateUserTransactionStatus(grid, e, row);
+                this.updateUserRefferalStatus(grid, e, row);
             }
         },
         viewConfig: {
@@ -29,7 +29,7 @@ bvBill.grid.UserTransactionStatus = function (config) {
         remoteSort: true,
         autoHeight: true,
     });
-    bvBill.grid.UserTransactionStatus.superclass.constructor.call(this, config);
+    bvBill.grid.UserRefferalStatus.superclass.constructor.call(this, config);
 
     this.store.on('load', function () {
         if (this._getSelectedIds().length) {
@@ -37,7 +37,7 @@ bvBill.grid.UserTransactionStatus = function (config) {
         }
     }, this);
 };
-Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
+Ext.extend(bvBill.grid.UserRefferalStatus, MODx.grid.Grid, {
     windows: {},
 
     getMenu: function (grid, rowIndex) {
@@ -47,9 +47,9 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         this.addContextMenuItem(menu);
     },
 
-    createUserTransactionStatus: function (btn, e) {
+    createUserRefferalStatus: function (btn, e) {
         var w = MODx.load({
-            xtype: 'bvbill-usertransactionstatus-window-create',
+            xtype: 'bvbill-userrefferaltatus-window-create',
             id: Ext.id(),
             listeners: {
                 success: {
@@ -63,7 +63,7 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         w.show(e.target);
     },
 
-    enableUserTransactionStatus: function () {
+    enableUserRefferalStatus: function () {
         var ids = this._getSelectedIds();
         if (!ids.length) {
             return false;
@@ -71,7 +71,7 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         MODx.Ajax.request({
             url: this.config.url,
             params: {
-                action: 'mgr/usertransactionstatus/enable',
+                action: 'mgr/userrefferaltatus/enable',
                 ids: Ext.util.JSON.encode(ids),
             },
             listeners: {
@@ -84,7 +84,7 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         });
     },
 
-    disableUserTransactionStatus: function () {
+    disableUserRefferalStatus: function () {
         var ids = this._getSelectedIds();
         if (!ids.length) {
             return false;
@@ -92,7 +92,7 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         MODx.Ajax.request({
             url: this.config.url,
             params: {
-                action: 'mgr/usertransactionstatus/disable',
+                action: 'mgr/userrefferaltatus/disable',
                 ids: Ext.util.JSON.encode(ids),
             },
             listeners: {
@@ -105,7 +105,7 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         });
     },
 
-    removeUserTransactionStatus: function () {
+    removeUserRefferalStatus: function () {
         var ids = this._getSelectedIds();
         if (!ids.length) {
             return false;
@@ -115,7 +115,7 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
             text: _('bvbill_item_remove_confirm'),
             url: this.config.url,
             params: {
-                action: 'mgr/usertransactionstatus/remove',
+                action: 'mgr/userrefferaltatus/remove',
                 ids: Ext.util.JSON.encode(ids),
             },
             listeners: {
@@ -128,7 +128,7 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         });
     },
 
-    updateUserTransactionStatus: function (btn, e, row) {
+    updateUserRefferalStatus: function (btn, e, row) {
         if (typeof(row) != 'undefined') {
             this.menu.record = row.data;
         }
@@ -139,14 +139,14 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         MODx.Ajax.request({
             url: this.config.url,
             params: {
-                action: 'mgr/usertransactionstatus/get',
+                action: 'mgr/userrefferaltatus/get',
                 id: id
             },
             listeners: {
                 success: {
                     fn: function (r) {
                         var w = MODx.load({
-                            xtype: 'bvbill-usertransactionstatus-window-update',
+                            xtype: 'bvbill-userrefferaltatus-window-update',
                             id: Ext.id(),
                             record: r,
                             listeners: {
@@ -167,7 +167,7 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
     },
 
     getFields: function () {
-        return ['id', 'name', 'type', 'active', 'actions'];
+        return ['id', 'name', 'active', 'actions'];
     },
 
     getColumns: function () {
@@ -177,19 +177,13 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
             sortable: true,
             width: 50
         }, {
-            header: _('bvbill_usertransactionstatus_name'),
+            header: _('bvbill_userrefferaltatus_name'),
             dataIndex: 'name',
             sortable: true,
             width: 150
         }, {
-            header: _('bvbill_usertransactionstatus_active'),
+            header: _('bvbill_userrefferaltatus_active'),
             dataIndex: 'active',
-            renderer: bvBill.utils.renderBoolean,
-            sortable: true,
-            width: 100
-        }, {
-            header: _('bvbill_usertransactionstatus_type'),
-            dataIndex: 'type',
             renderer: bvBill.utils.renderBoolean,
             sortable: true,
             width: 100
@@ -205,7 +199,7 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
     getTopBar: function () {
         return [{
             text: '<i class="icon icon-plus"></i>&nbsp;' + _('bvbill_item_create'),
-            handler: this.createUserTransactionStatus,
+            handler: this.createUserRefferalStatus,
             scope: this
         }, '->', {
             xtype: 'bvbill-field-search',
@@ -248,4 +242,4 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         this.getBottomToolbar().changePage(1);
     }
 });
-Ext.reg('bvbill-grid-usertransactionstatus', bvBill.grid.UserTransactionStatus);
+Ext.reg('bvbill-grid-userrefferaltatus', bvBill.grid.UserRefferalStatus);

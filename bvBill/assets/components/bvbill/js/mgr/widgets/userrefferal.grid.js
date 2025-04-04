@@ -1,7 +1,7 @@
-bvBill.grid.UserTransactionStatus = function (config) {
+bvBill.grid.UserRefferal = function (config) {
     config = config || {};
     if (!config.id) {
-        config.id = 'bvbill-grid-usertransactionstatus';
+        config.id = 'bvbill-grid-userrefferal';
     }
     Ext.applyIf(config, {
         url: bvBill.config.connector_url,
@@ -10,12 +10,12 @@ bvBill.grid.UserTransactionStatus = function (config) {
         tbar: this.getTopBar(config),
         sm: new Ext.grid.CheckboxSelectionModel(),
         baseParams: {
-            action: 'mgr/usertransactionstatus/getlist'
+            action: 'mgr/userrefferal/getlist'
         },
         listeners: {
             rowDblClick: function (grid, rowIndex, e) {
                 var row = grid.store.getAt(rowIndex);
-                this.updateUserTransactionStatus(grid, e, row);
+                this.updateUserRefferal(grid, e, row);
             }
         },
         viewConfig: {
@@ -29,15 +29,9 @@ bvBill.grid.UserTransactionStatus = function (config) {
         remoteSort: true,
         autoHeight: true,
     });
-    bvBill.grid.UserTransactionStatus.superclass.constructor.call(this, config);
-
-    this.store.on('load', function () {
-        if (this._getSelectedIds().length) {
-            this.getSelectionModel().clearSelections();
-        }
-    }, this);
+    bvBill.grid.UserRefferal.superclass.constructor.call(this, config);
 };
-Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
+Ext.extend(bvBill.grid.UserRefferal, MODx.grid.Grid, {
     windows: {},
 
     getMenu: function (grid, rowIndex) {
@@ -47,9 +41,9 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         this.addContextMenuItem(menu);
     },
 
-    createUserTransactionStatus: function (btn, e) {
+    createUserRefferal: function (btn, e) {
         var w = MODx.load({
-            xtype: 'bvbill-usertransactionstatus-window-create',
+            xtype: 'bvbill-userrefferal-window-create',
             id: Ext.id(),
             listeners: {
                 success: {
@@ -63,72 +57,7 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         w.show(e.target);
     },
 
-    enableUserTransactionStatus: function () {
-        var ids = this._getSelectedIds();
-        if (!ids.length) {
-            return false;
-        }
-        MODx.Ajax.request({
-            url: this.config.url,
-            params: {
-                action: 'mgr/usertransactionstatus/enable',
-                ids: Ext.util.JSON.encode(ids),
-            },
-            listeners: {
-                success: {
-                    fn: function () {
-                        this.refresh();
-                    }, scope: this
-                }
-            }
-        });
-    },
-
-    disableUserTransactionStatus: function () {
-        var ids = this._getSelectedIds();
-        if (!ids.length) {
-            return false;
-        }
-        MODx.Ajax.request({
-            url: this.config.url,
-            params: {
-                action: 'mgr/usertransactionstatus/disable',
-                ids: Ext.util.JSON.encode(ids),
-            },
-            listeners: {
-                success: {
-                    fn: function () {
-                        this.refresh();
-                    }, scope: this
-                }
-            }
-        });
-    },
-
-    removeUserTransactionStatus: function () {
-        var ids = this._getSelectedIds();
-        if (!ids.length) {
-            return false;
-        }
-        MODx.msg.confirm({
-            title: _('bvbill_item_remove'),
-            text: _('bvbill_item_remove_confirm'),
-            url: this.config.url,
-            params: {
-                action: 'mgr/usertransactionstatus/remove',
-                ids: Ext.util.JSON.encode(ids),
-            },
-            listeners: {
-                success: {
-                    fn: function () {
-                        this.refresh();
-                    }, scope: this
-                }
-            }
-        });
-    },
-
-    updateUserTransactionStatus: function (btn, e, row) {
+    updateUserRefferal: function (btn, e, row) {
         if (typeof(row) != 'undefined') {
             this.menu.record = row.data;
         }
@@ -139,14 +68,14 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         MODx.Ajax.request({
             url: this.config.url,
             params: {
-                action: 'mgr/usertransactionstatus/get',
+                action: 'mgr/userrefferal/get',
                 id: id
             },
             listeners: {
                 success: {
                     fn: function (r) {
                         var w = MODx.load({
-                            xtype: 'bvbill-usertransactionstatus-window-update',
+                            xtype: 'bvbill-userrefferal-window-update',
                             id: Ext.id(),
                             record: r,
                             listeners: {
@@ -166,8 +95,31 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         });
     },
 
+    removeUserRefferal: function () {
+        var ids = this._getSelectedIds();
+        if (!ids.length) {
+            return false;
+        }
+        MODx.msg.confirm({
+            title: _('bvbill_item_remove'),
+            text: _('bvbill_item_remove_confirm'),
+            url: this.config.url,
+            params: {
+                action: 'mgr/userrefferal/remove',
+                ids: Ext.util.JSON.encode(ids),
+            },
+            listeners: {
+                success: {
+                    fn: function () {
+                        this.refresh();
+                    }, scope: this
+                }
+            }
+        });
+    },
+
     getFields: function () {
-        return ['id', 'name', 'type', 'active', 'actions'];
+        return ['id', 'user_id', 'refferal_id', 'username', 'fullname', 'phone', 'status_id', 'status', 'status_name', 'createdon', 'updatedon', 'actions'];
     },
 
     getColumns: function () {
@@ -177,22 +129,37 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
             sortable: true,
             width: 50
         }, {
-            header: _('bvbill_usertransactionstatus_name'),
-            dataIndex: 'name',
+            header: _('bvbill_userrefferal_username'),
+            dataIndex: 'username',
             sortable: true,
             width: 150
         }, {
-            header: _('bvbill_usertransactionstatus_active'),
-            dataIndex: 'active',
-            renderer: bvBill.utils.renderBoolean,
+            header: _('bvbill_userrefferal_fullname'),
+            dataIndex: 'fullname',
+            sortable: true,
+            width: 150
+        }, {
+            header: _('bvbill_userrefferal_phone'),
+            dataIndex: 'phone',
+            sortable: true,
+            width: 150
+        }, {
+            header: _('bvbill_userrefferal_status'),
+            dataIndex: 'status_name',
             sortable: true,
             width: 100
         }, {
-            header: _('bvbill_usertransactionstatus_type'),
-            dataIndex: 'type',
-            renderer: bvBill.utils.renderBoolean,
+            header: _('bvbill_userrefferal_createdon'),
+            dataIndex: 'createdon',
+            renderer: bvBill.utils.formatDate,
             sortable: true,
-            width: 100
+            width: 150
+        }, {
+            header: _('bvbill_userrefferal_updatedon'),
+            dataIndex: 'updatedon',
+            renderer: bvBill.utils.formatDate,
+            sortable: true,
+            width: 150
         }, {
             header: _('bvbill_grid_actions'),
             dataIndex: 'actions',
@@ -205,7 +172,7 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
     getTopBar: function () {
         return [{
             text: '<i class="icon icon-plus"></i>&nbsp;' + _('bvbill_item_create'),
-            handler: this.createUserTransactionStatus,
+            handler: this.createUserRefferal,
             scope: this
         }, '->', {
             xtype: 'bvbill-field-search',
@@ -226,15 +193,36 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
         }];
     },
 
+    onClick: function (e) {
+        var elem = e.getTarget();
+        if (elem.nodeName == 'BUTTON') {
+            var row = this.getSelectionModel().getSelected();
+            if (typeof(row) != 'undefined') {
+                var action = elem.getAttribute('action');
+                if (action == 'showMenu') {
+                    var ri = this.getStore().find('id', row.id);
+                    return this._showMenu(this, ri, e);
+                }
+                else if (typeof this[action] === 'function') {
+                    this.menu.record = row.data;
+                    return this[action](this, e);
+                }
+            }
+        }
+        return this.processEvent('click', e);
+    },
+
     _getSelectedIds: function () {
         var ids = [];
         var selected = this.getSelectionModel().getSelections();
+
         for (var i in selected) {
             if (!selected.hasOwnProperty(i)) {
                 continue;
             }
             ids.push(selected[i]['id']);
         }
+
         return ids;
     },
 
@@ -246,6 +234,6 @@ Ext.extend(bvBill.grid.UserTransactionStatus, MODx.grid.Grid, {
     _clearSearch: function () {
         this.getStore().baseParams.query = '';
         this.getBottomToolbar().changePage(1);
-    }
+    },
 });
-Ext.reg('bvbill-grid-usertransactionstatus', bvBill.grid.UserTransactionStatus);
+Ext.reg('bvbill-grid-userrefferal', bvBill.grid.UserRefferal);

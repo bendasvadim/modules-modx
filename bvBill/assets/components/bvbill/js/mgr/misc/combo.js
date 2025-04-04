@@ -104,3 +104,50 @@ bvBill.combo.User = function(config) {
 Ext.extend(bvBill.combo.User, MODx.combo.ComboBox);
 Ext.reg('bvbill-combo-user', bvBill.combo.User);
 
+bvBill.combo.TransactionType = function(config) {
+    config = config || {};
+    Ext.applyIf(config, {
+        store: new Ext.data.SimpleStore({
+            fields: ['value', 'display'],
+            data: [
+                ['1', 'Начисление'],
+                ['0', 'Списание']
+            ]
+        }),
+        mode: 'local',
+        displayField: 'display',
+        valueField: 'value',
+        hiddenName: 'type',
+        editable: false,
+        triggerAction: 'all',
+        forceSelection: true,
+        selectOnFocus: true
+    });
+    bvBill.combo.TransactionType.superclass.constructor.call(this, config);
+};
+Ext.extend(bvBill.combo.TransactionType, MODx.combo.ComboBox);
+Ext.reg('bvbill-combo-transaction-type', bvBill.combo.TransactionType);
+
+bvBill.combo.RefferalStatus = function(config) {
+    config = config || {};
+
+    Ext.applyIf(config, {
+        name: 'status_id',
+        id: 'bvbill-combo-refferal-status',
+        hiddenName: 'status_id',
+        displayField: 'name',
+        valueField: 'id',
+        fields: ['id', 'name'],
+        pageSize: 10,
+        emptyText: _('bvbill_combo_select_status'),
+        url: bvBill.config.connector_url,
+        baseParams: {
+            action: 'mgr/userrefferaltatus/getlist',
+            combo: true,
+            addall: config.addall || 0
+        },
+    });
+    bvBill.combo.RefferalStatus.superclass.constructor.call(this, config);
+};
+Ext.extend(bvBill.combo.RefferalStatus, MODx.combo.ComboBox);
+Ext.reg('bvbill-combo-refferal-status', bvBill.combo.RefferalStatus);

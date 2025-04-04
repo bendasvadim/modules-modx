@@ -1,12 +1,19 @@
 <?php
 
-class bvBillUserBalanceUpdateProcessor extends modObjectUpdateProcessor
+class bvBillUserRefferalsUpdateProcessor extends modObjectUpdateProcessor
 {
-    public $objectType = 'bvBillUserBalance';
-    public $classKey = 'bvBillUserBalance';
+    public $objectType = 'bvBillUserRefferals';
+    public $classKey = 'bvBillUserRefferals';
     public $languageTopics = ['bvbill'];
     //public $permission = 'save';
 
+    public function process() {
+        if (!$this->checkPermissions()) {
+            return $this->failure($this->modx->lexicon('access_denied'));
+        }
+
+        return parent::process();
+    }
 
     /**
      * We doing special check of permission
@@ -23,7 +30,6 @@ class bvBillUserBalanceUpdateProcessor extends modObjectUpdateProcessor
         return true;
     }
 
-
     /**
      * @return bool
      */
@@ -39,4 +45,4 @@ class bvBillUserBalanceUpdateProcessor extends modObjectUpdateProcessor
     }
 }
 
-return 'bvBillUserBalanceUpdateProcessor';
+return 'bvBillUserRefferalsUpdateProcessor';

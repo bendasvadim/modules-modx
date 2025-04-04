@@ -1,16 +1,14 @@
 <?php
-switch ($modx->event->name) {
+if ($modx->event->name === 'OnTVInputRenderList') {
+  $modx->event->output(MODX_CORE_PATH . 'components/bvtags/elements/tv/input/');
+}
 
-    case 'OnMODXInit':
-        // Явно регистрируем кастомный тип TV
-        $modx->tvInputTypes['bvtags'] = MODX_CORE_PATH . 'components/bvtags/elements/tv/input/';
-        break;
+if ($modx->event->name === 'OnTVInputPropertiesList') {
+  $modx->event->output(MODX_CORE_PATH . 'components/bvtags/elements/tv/input/options/');
+}
 
-    case 'OnTVInputRenderList':
-        $modx->event->output(MODX_CORE_PATH . 'components/bvtags/elements/tv/input/');
-        break;
-
-    case 'OnTVInputPropertiesList':
-        $modx->event->output(MODX_CORE_PATH . 'components/bvtags/elements/tv/input/options/');
-        break;
+if ($modx->event->name === 'OnTVInputRender') {
+  if ($params['tv']->get('name') === 'bvTagsTV') {
+    return $modx->controller->loadInputOptions($params['tv']->get('type'));
+  }
 }

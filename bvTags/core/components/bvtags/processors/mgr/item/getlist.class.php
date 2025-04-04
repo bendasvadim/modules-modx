@@ -32,9 +32,6 @@ class bvTagsItemGetListProcessor extends modObjectGetListProcessor
      */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
-        if ($active = $this->getProperty('active')) {
-            $c->where(['active' => $active]);
-        }
         $query = trim($this->getProperty('query'));
         if ($query) {
             $c->where([
@@ -56,6 +53,7 @@ class bvTagsItemGetListProcessor extends modObjectGetListProcessor
     {
         $array = $object->toArray();
         $array['actions'] = [];
+        $array['name'] = $object->get('name'); // важно!
 
         // Edit
         $array['actions'][] = [

@@ -7,7 +7,8 @@ Ext.onReady(function () {
     store: new Ext.data.JsonStore({
       url: MODx.config.connector_url,
       baseParams: {
-        action: 'bvtags/item/getlist'
+        action: 'bvtags/item/getlist',
+        active: 1
       },
       fields: ['id', 'name'],
       root: 'results'

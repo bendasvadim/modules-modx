@@ -5,9 +5,9 @@ return [
         'file' => 'bvtags',
         'description' => '',
         'events' => [
+            'OnMODXInit' => [],
             'OnTVInputRenderList' => [],
             'OnTVInputPropertiesList' => [],
-            'OnTVInputRender' => [],
         ],
     ],
 ];

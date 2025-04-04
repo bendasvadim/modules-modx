@@ -32,6 +32,9 @@ class bvTagsItemGetListProcessor extends modObjectGetListProcessor
      */
     public function prepareQueryBeforeCount(xPDOQuery $c)
     {
+        if ($active = $this->getProperty('active')) {
+            $c->where(['active' => $active]);
+        }
         $query = trim($this->getProperty('query'));
         if ($query) {
             $c->where([
